@@ -21,4 +21,9 @@ public class PlayerController : MonoBehaviour
             0,
             vertical * Time.fixedDeltaTime * forwardSpeed));
     }
+
+    public void killPlayer()
+    {
+        Destroy(gameObject);
+    }
 }
