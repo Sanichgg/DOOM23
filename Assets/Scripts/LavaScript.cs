@@ -6,12 +6,12 @@ public class LavaScript : MonoBehaviour
 {
     [SerializeField]int damageDeal;
     
-    PlayerCurrentStats player;
+    DamagebleComponent player;
     public void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Player")
         {
-            player = FindObjectOfType<PlayerCurrentStats>();
+            player = FindObjectOfType<DamagebleComponent>();
             StartCoroutine(TakeDamagePerTime(damageDeal, player));
         }
     }
@@ -20,11 +20,11 @@ public class LavaScript : MonoBehaviour
         if (collision.gameObject.tag == "Player") StopAllCoroutines();
     }
 
-    IEnumerator TakeDamagePerTime(int damage, PlayerCurrentStats playerStats)
+    IEnumerator TakeDamagePerTime(int damage, DamagebleComponent playerStats)
     {
         while (true)
         {
-            playerStats.DamageTake(damage);
+            playerStats.DealDamage(damage);
             yield return new WaitForSeconds(1f);
         }
     }

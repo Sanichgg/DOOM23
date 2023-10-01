@@ -8,15 +8,15 @@ public class DamagebleComponent : MonoBehaviour
 
     bool isDead;
 
-    int currentHp;
+    [SerializeField] int currentHp;
 
     private void Start()
     {
         currentHp = hp;
     }
 
-    public bool IsDead => isDead; //property - его нельзя использовать, только прочитать (метод) 
-    //ниже запись такая же по функционалу 2
+    public bool IsDead => isDead; //property - его нельзя использовать, только прочитать (метод)
+    //ниже запись такая же по функционалу
     public bool isAlive
     {
         get
@@ -54,7 +54,7 @@ public class DamagebleComponent : MonoBehaviour
 
     public void DealDamage(int damageAmount)
     {
-
+        currentHp -= damageAmount;
     }
 
     public void Heal()
