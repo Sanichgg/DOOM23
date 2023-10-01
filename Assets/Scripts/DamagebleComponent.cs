@@ -15,8 +15,7 @@ public class DamagebleComponent : MonoBehaviour
         currentHp = hp;
     }
 
-    public bool IsDead => isDead; //property - его нельзя использовать, только прочитать (метод)
-    //ниже запись такая же по функционалу
+    public bool IsDead => isDead; 
     public bool isAlive
     {
         get
@@ -25,7 +24,7 @@ public class DamagebleComponent : MonoBehaviour
         }
     }
     
-    public int Hp //property
+    public int Hp 
     {
         get => hp;
         set
@@ -37,7 +36,6 @@ public class DamagebleComponent : MonoBehaviour
             {
                 Die();
             }
-
         }
     } 
 
@@ -47,18 +45,13 @@ public class DamagebleComponent : MonoBehaviour
         isDead = true;
     }
 
-
-
-
-
-
     public void DealDamage(int damageAmount)
     {
         currentHp -= damageAmount;
     }
 
-    public void Heal()
+    public void Heal(int healAmount)
     {
-        
+        currentHp += healAmount;
     }
 }

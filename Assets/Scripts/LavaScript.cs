@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class LavaScript : MonoBehaviour
 {
-    [SerializeField]int damageDeal;
-    
+    [SerializeField] int damageDeal;
     DamagebleComponent player;
+
     public void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Player")
