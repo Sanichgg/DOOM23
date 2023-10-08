@@ -54,4 +54,13 @@ public class DamagebleComponent : MonoBehaviour
     {
         currentHp += healAmount;
     }
+
+    private void OnEnable()
+    {
+        EnemyManager.RegisterEnemy(this);
+    }
+    private void OnDisable()
+    {
+        EnemyManager.UnregisterEnemy(this);
+    }
 }

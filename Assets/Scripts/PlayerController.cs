@@ -2,34 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
+
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float forwardForse = 1;
-    [SerializeField] float sideForse = 1;
-    [SerializeField] float sensativity;
+    [SerializeField] float speed = 10f;
+    [SerializeField] float sensitivity = 10f;
 
+    Vector3 surfaceNormal;
+    CharacterController characterController;
 
-    Rigidbody rb;
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
     }
 
-    void FixedUpdate()
+    float verticalMovement = 0f;
+
+    private void Update()
     {
         float xMouseMovement = Input.GetAxis("Mouse X");
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        Vector3 forse = Vector3.zero;
-        
-        forse += transform.forward * vertical * Time.fixedDeltaTime * forwardForse;
-        forse += transform.right * horizontal * Time.fixedDeltaTime * sideForse;
+        Vector3 moveDirection = new Vector3(horizontal, 0, vertical);
 
-        float rotation = xMouseMovement * sensativity * Time.fixedDeltaTime;
+        moveDirection = Vector3.ClampMagnitude(moveDirection, 1);
+        moveDirection = transform.TransformDirection(moveDirection) * speed;
+        moveDirection = Vector3.ProjectOnPlane(moveDirection, surfaceNormal);
 
-        rb.AddForce(forse);
-        transform.Rotate(0, rotation, 0);
+        Debug.DrawLine(transform.position, transform.position + moveDirection * 2, Color.blue);
+
+        transform.Rotate(new Vector3(0, xMouseMovement * sensitivity * Time.deltaTime, 0));
+
+        if (characterController.isGrounded)
+        {
+            verticalMovement = 0;
+        }
+        else
+        {
+            verticalMovement -= 9.8f * Time.deltaTime;
+        }
+        characterController.Move((moveDirection * speed + Vector3.up * verticalMovement) * Time.deltaTime);
 
     }
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Debug.DrawLine(hit.point, hit.point + hit.normal * 10, Color.red);
+
+        surfaceNormal = hit.normal;
+    }
+
 }
