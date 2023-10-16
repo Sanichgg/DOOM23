@@ -9,15 +9,14 @@ public class LavaScript : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if(collision.gameObject.GetComponent<DamagebleComponent>())
         {
-            player = FindObjectOfType<DamagebleComponent>();
             StartCoroutine(TakeDamagePerTime(damageDeal, player));
         }
     }
     public void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag == "Player") StopAllCoroutines();
+        if (collision.gameObject.GetComponent<DamagebleComponent>()) StopAllCoroutines();
     }
 
     IEnumerator TakeDamagePerTime(int damage, DamagebleComponent playerStats)

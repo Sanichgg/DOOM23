@@ -31,7 +31,7 @@ public class PlayerShoot : MonoBehaviour
 
                 if (AimLineAttack(enemy.transform.position)
                     || AimLineAttack(enemy.transform.position + unitFrac)
-                    || AimLineAttack(enemy.transform.position - unitFrac)) ;
+                    || AimLineAttack(enemy.transform.position - unitFrac));
 
                 //RaycastHit hit;
 
