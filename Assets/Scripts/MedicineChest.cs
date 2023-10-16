@@ -9,9 +9,9 @@ public class MedicineChest : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.GetComponent<DamagebleComponent>())
         {
-            player = FindObjectOfType<DamagebleComponent>();
+            
             HealPlayer(player);
         }
     }
