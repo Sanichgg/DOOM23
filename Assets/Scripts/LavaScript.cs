@@ -5,31 +5,45 @@ using UnityEngine;
 public class LavaScript : MonoBehaviour
 {
     [SerializeField] int damageDeal;
-    DamagebleComponent player;
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.GetComponent<DamagebleComponent>())
-        {
-            player = collision.gameObject.GetComponent<DamagebleComponent>();
-            StartCoroutine(TakeDamagePerTime(damageDeal, player));
-            
-        }
+        
     }
     public void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.GetComponent<DamagebleComponent>())
-            player = collision.gameObject.GetComponent<DamagebleComponent>();
-        StopAllCoroutines();
+        if (collision.gameObject.GetComponent<DamagebleComponent>()) StopAllCoroutines();
     }
 
-    IEnumerator TakeDamagePerTime(int damage, DamagebleComponent playerStats)
+    IEnumerator TakeDamagePerTime(int damage, DamagebleComponent damagable)
     {
-        
         while (true)
         {
-            playerStats.DealDamage(damage);
+            damagable.DealDamage(damage);
             yield return new WaitForSeconds(1f);
         }
+    }
+
+
+    void OnCharacterStay(PlayerController controller)
+    {
+        print($"Lava Player stay: {controller.name}");
+    }
+    void OnCharacterEnter()
+    {
+        print("Lava Player enter");
+        //DamagebleComponent damagable = collision.gameObject.GetComponent<DamagebleComponent>();
+        /*
+        if (damagable != null)
+        {
+            StartCoroutine(TakeDamagePerTime(damageDeal, damagable));
+        }
+        */
+    }
+    void OnCharacterExit()
+    {
+        print("Lava Player exit");
+        //if (collision.gameObject.GetComponent<DamagebleComponent>()) StopAllCoroutines(); // ƒ«: œ≈–≈œ»—¿“‹ ÎËÙÚ˚ Ë Î‡‚Û œŒƒ message-ÒËÒÚÂÏÛ
+
     }
 }

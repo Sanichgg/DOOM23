@@ -11,7 +11,7 @@ public class MedicineChest : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<DamagebleComponent>())
         {
-            player = collision.gameObject.GetComponent<DamagebleComponent>();
+            
             HealPlayer(player);
         }
     }
