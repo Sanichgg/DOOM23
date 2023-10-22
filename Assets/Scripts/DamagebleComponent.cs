@@ -31,13 +31,26 @@ public class DamagebleComponent : MonoBehaviour
         {
             if (isDead) return;
 
+            if (currentHp == 100)
+                return;
+
             currentHp = value;
-            if(currentHp <= 0)
+
+            if (currentHp <= 0)
             {
                 Die();
             }
+            if (currentHp > 100)
+            {
+                currentHp = hp;
+            }
         }
-    } 
+    }
+    private void Update()
+    {
+        
+        Debug.Log(currentHp);
+    }
 
     void Die()
     {
@@ -45,15 +58,6 @@ public class DamagebleComponent : MonoBehaviour
         isDead = true;
     }
 
-    public void DealDamage(int damageAmount)
-    {
-        currentHp -= damageAmount;
-    }
-
-    public void Heal(int healAmount)
-    {
-        currentHp += healAmount;
-    }
 
     private void OnEnable()
     {

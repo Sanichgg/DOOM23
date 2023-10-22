@@ -6,10 +6,10 @@ using static UnityEditor.PlayerSettings;
 public class Elevator : MonoBehaviour
 {
     [SerializeField] float speed; //elevator speed
-    [SerializeField] int height; //до куда подниматься???
+    [SerializeField] int height; //Where to go?
     // Update is called once per frame
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         MoveElevator();
     }

@@ -7,18 +7,12 @@ public class MedicineChest : MonoBehaviour
     [SerializeField] int heal;
     DamagebleComponent player;
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.GetComponent<DamagebleComponent>())
+        if (collision.GetComponent<PlayerController>())
         {
-            
-            HealPlayer(player);
+            player.Hp += heal;
+            Destroy(this);
         }
-    }
-
-    void HealPlayer(DamagebleComponent playerStats)
-    {
-        playerStats.Heal(heal);
-        Destroy(gameObject);
     }
 }

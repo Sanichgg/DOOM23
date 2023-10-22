@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Lava : MonoBehaviour
@@ -7,29 +8,29 @@ public class Lava : MonoBehaviour
     [SerializeField] int damageDeal;
     DamagebleComponent player;
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.GetComponent<DamagebleComponent>())
+        if (other.GetComponent<PlayerController>())
         {
-            player = collision.gameObject.GetComponent<DamagebleComponent>();
+            player = other.gameObject.GetComponent<DamagebleComponent>();
             StartCoroutine(TakeDamagePerTime(damageDeal, player));
-            
         }
     }
-    public void OnCollisionExit(Collision collision)
+
+    public void OnTriggerExit(Collider other)
     {
-        if (collision.gameObject.GetComponent<DamagebleComponent>())
-            player = collision.gameObject.GetComponent<DamagebleComponent>();
+        if (other.GetComponent<PlayerController>())
+            player = other.gameObject.GetComponent<DamagebleComponent>();
         StopAllCoroutines();
     }
 
     IEnumerator TakeDamagePerTime(int damage, DamagebleComponent playerStats)
     {
-        
         while (true)
         {
-            playerStats.DealDamage(damage);
-            yield return new WaitForSeconds(1f);
+            Debug.Log("f");
+            yield return new WaitForSeconds(0.5f);
+            playerStats.Hp -= damage;
         }
     }
 }
