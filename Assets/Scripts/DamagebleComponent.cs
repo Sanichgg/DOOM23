@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DamagebleComponent : MonoBehaviour
 {
-    [SerializeField] int hp = 100;
+    [SerializeField] int maxHp = 100;
+    int hp;
 
     bool isDead;
 
@@ -12,7 +13,7 @@ public class DamagebleComponent : MonoBehaviour
 
     private void Start()
     {
-        currentHp = hp;
+        Hp = maxHp;
     }
 
     public bool IsDead => isDead; 
@@ -29,27 +30,30 @@ public class DamagebleComponent : MonoBehaviour
         get => hp;
         set
         {
+            Debug.Log(value);
             if (isDead) return;
 
-            if (currentHp == 100)
-                return;
-
-            currentHp = value;
-
-            if (currentHp <= 0)
+            if (value <= 0)
             {
+                hp = value;
                 Die();
             }
-            if (currentHp > 100)
+            
+            else if (value > 100)
             {
-                currentHp = hp;
+               hp = maxHp;
             }
+            else
+            {
+                hp = value;
+            }
+
         }
     }
     private void Update()
     {
         
-        Debug.Log(currentHp);
+        //Debug.Log(currentHp);
     }
 
     void Die()
