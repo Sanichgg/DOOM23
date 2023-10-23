@@ -7,37 +7,30 @@ public class Lava : MonoBehaviour
 {
     [SerializeField] int damageDeal;
     DamagebleComponent player;
-    private void Start()
-    {
-        StartCoroutine(TakeDamagePerTime());
-    }
 
     public void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PlayerController>())
         {
             player = other.gameObject.GetComponent<DamagebleComponent>();
-           
+            StartCoroutine(TakeDamagePerTime(damageDeal, player));
         }
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<PlayerController>())  player = null;
+        if (other.GetComponent<PlayerController>())
+            player = other.gameObject.GetComponent<DamagebleComponent>();
+        StopAllCoroutines();
     }
 
-    IEnumerator TakeDamagePerTime()
+    IEnumerator TakeDamagePerTime(int damage, DamagebleComponent playerStats)
     {
         while (true)
         {
-            
+            Debug.Log("f");
             yield return new WaitForSeconds(0.5f);
-
-            if (player != null)
-            {
-                Debug.Log("f");
-                player.Hp -= damageDeal;
-            }
+            playerStats.Hp -= damage;
         }
     }
 }

@@ -9,7 +9,7 @@ public class MedicineChest : MonoBehaviour
 
     public void OnTriggerEnter(Collider collision)
     {
-        if (collision.GetComponent<PlayerController>())
+        if (collision.GetComponent<PlayerController>() && collision.GetComponent<DamagebleComponent>().Hp != 100f)
         {
             player.Hp += heal;
             Destroy(this);

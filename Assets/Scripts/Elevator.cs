@@ -8,7 +8,8 @@ public class Elevator : MonoBehaviour
     [SerializeField] float speed; //elevator speed
     [SerializeField] int height; //Where to go?
     Vector3 startpos;
-    // Update is called once per frame
+    Transform passenger;
+
     private void Start()
     {
         StartCoroutine(ElevatorMovement());
@@ -34,5 +35,19 @@ public class Elevator : MonoBehaviour
             }
             yield return new WaitForSeconds(2f);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerController>())
+        {
+            passenger = collision.gameObject.transform;
+            passenger.SetParent(transform, true);
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        gameObject.transform.DetachChildren();
+        passenger = null;
     }
 }

@@ -97,7 +97,9 @@ GameObject:
   - component: {fileID: 2875785654183516428}
   - component: {fileID: 2875785654183516419}
   - component: {fileID: 2387899843902120192}
+  - component: {fileID: 2744649595961588184}
   - component: {fileID: 2875785654183516418}
+  - component: {fileID: -7919862438633631513}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -197,6 +199,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4125ff3f6ad37134385bc2d3037dbd98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2744649595961588184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2875785654183516417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a73b042e98ee496439cb1557508cd2d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
 --- !u!114 &2875785654183516418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,3 +226,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 100
   currentHp: 0
+--- !u!143 &-7919862438633631513
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2875785654183516417}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
