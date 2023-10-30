@@ -12,8 +12,9 @@ public class Elevator : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(ElevatorMovement());
         startpos = transform.position;
+        StartCoroutine(ElevatorMovement());
+        
     }
     IEnumerator ElevatorMovement()
     {
@@ -35,19 +36,5 @@ public class Elevator : MonoBehaviour
             }
             yield return new WaitForSeconds(2f);
         }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.GetComponent<PlayerController>())
-        {
-            passenger = collision.gameObject.transform;
-            passenger.SetParent(transform, true);
-        }
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        gameObject.transform.DetachChildren();
-        passenger = null;
     }
 }
