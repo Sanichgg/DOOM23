@@ -1,25 +1,43 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
+public enum MoveToCompletedReason
+{
+    Success,
+    Failure,
+    Aborted
+}
 
 public class AIController : BaceCharacterController
 {
     bool isMoveToCompleted = true;
-    NavMeshPath path;
     int pathPointIndex;
+    Action<MoveToCompletedReason> moveToCompleted;
 
+    NavMeshPath path;
     protected override void Awake()
     {
         base.Awake();
         path = new NavMeshPath();
     }
 
-    protected bool MoveTo(Vector3 targetPos)
+    public bool MoveTo(Vector3 targetPos, Action<MoveToCompletedReason> completed = null)
     {
+        if (!isMoveToCompleted)
+            InvokeMoveToCompleted(MoveToCompletedReason.Aborted);
+
+        moveToCompleted = completed;
+
         bool hasPath = NavMesh.CalculatePath(transform.position, targetPos, NavMesh.AllAreas, path);
 
         if (hasPath) pathPointIndex = 1;
-        isMoveToCompleted =!hasPath; 
+        isMoveToCompleted =!hasPath;
+
+        if (!hasPath)
+        {
+            InvokeMoveToCompleted(MoveToCompletedReason.Failure);
+        }
 
         return hasPath;
     }
@@ -46,8 +64,7 @@ public class AIController : BaceCharacterController
             {
                 if (pathPointIndex + 1 >= path.corners.Length)
                 {
-                    print("done");
-                    isMoveToCompleted = true;
+                    InvokeMoveToCompleted(MoveToCompletedReason.Success);
                     return;
                 }
                 pathPointIndex++;
@@ -56,7 +73,15 @@ public class AIController : BaceCharacterController
             }
 
             Vector3 direction = (targetPos - soursePos).normalized;
+
             MoveWorld(direction.x, direction.z);
         }
+
+    }
+    void InvokeMoveToCompleted(MoveToCompletedReason reason)
+    {
+        Action<MoveToCompletedReason> action = moveToCompleted;
+        moveToCompleted = null;
+        action?.Invoke(reason);
     }
 }

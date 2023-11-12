@@ -710,6 +710,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2744649595961588184, guid: 9369ed21c2f9e7446b9ea579af33428c, type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2875785654183516417, guid: 9369ed21c2f9e7446b9ea579af33428c, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
@@ -1931,6 +1935,10 @@ PrefabInstance:
     - target: {fileID: -7919862438633631513, guid: 9369ed21c2f9e7446b9ea579af33428c, type: 3}
       propertyPath: m_StepOffset
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744649595961588184, guid: 9369ed21c2f9e7446b9ea579af33428c, type: 3}
+      propertyPath: speed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2875785654183516417, guid: 9369ed21c2f9e7446b9ea579af33428c, type: 3}
       propertyPath: m_Name
