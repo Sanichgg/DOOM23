@@ -248,7 +248,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef1b8607f84ac66468be73fe765e7276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  maxHp: 100
+  affiliation: 1
   currentHp: 0
 --- !u!114 &6178493480276049646
 MonoBehaviour:
@@ -262,3 +263,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f349ed49bd6e834e92ad5b0f08c275e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pricel: {fileID: 0}

@@ -5,6 +5,9 @@ using UnityEngine;
 public class DamagebleComponent : MonoBehaviour
 {
     [SerializeField] int maxHp = 100;
+    [SerializeField] Affiliation affiliation;
+
+    public Affiliation Affiliation => affiliation;
 
 
     bool isDead;

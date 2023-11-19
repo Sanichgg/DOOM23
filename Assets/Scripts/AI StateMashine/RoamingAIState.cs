@@ -12,7 +12,7 @@ public class RoamingAIState : AIState
     }
     public override void Disable()
     {
-
+        
     }
 
     public override void Enable()
