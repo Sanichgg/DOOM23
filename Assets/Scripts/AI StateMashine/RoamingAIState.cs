@@ -6,24 +6,40 @@ using UnityEngine.AI;
 public class RoamingAIState : AIState
 {
     public AIController AIController { get; }
-    public RoamingAIState(AIController aIControlller, AIStateMachine stateMachine) : base(stateMachine)
+
+    public RoamingAIState(AIController aIController, AIStateMachine stateMachine) : base(stateMachine)
     {
-        AIController = aIControlller;
-    }
-    public override void Disable()
-    {
+        AIController = aIController;
         
     }
-
+    
     public override void Enable()
     {
         AIController.MoveTo(GetRandomPosInRadius(10), HandleMoveToCompleted); // HandleMoveToCompleted можно записать так -, () => Debug.Log("COMPLETED");
+        AIController.Sense.TargetChanged += HandleTargetChanged;
     }
+
+    public override void Disable()
+    {
+        AIController.Sense.TargetChanged -= HandleTargetChanged;
+
+    }
+
+    void HandleTargetChanged(DamagebleComponent target)
+    {
+        if(target != null)
+        {
+            AIController.AbortMoveTo();
+            ChangeState("Chasing");
+        }
+    }
+
+    
     void HandleMoveToCompleted(MoveToCompletedReason reason)
     {
         Debug.Log(reason);
 
-        if (reason == MoveToCompletedReason.Failure) return;
+        if (reason != MoveToCompletedReason.Success) return;
 
         ChangeState("Roaming");
     }
