@@ -6,38 +6,25 @@ using UnityEngine;
 public class Lava : MonoBehaviour
 {
     [SerializeField] int damageDeal;
-    DamagebleComponent player;
-    private void Start()
-    {
-        StartCoroutine(TakeDamagePerTime());
-    }
+    IEnumerator TakeDamagePerTime;
 
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<PlayerController>())
-        {
-            player = other.gameObject.GetComponent<DamagebleComponent>();
-
-        }
-    }
-
-    public void OnTriggerExit(Collider other)
-    {
-        if (other.GetComponent<PlayerController>()) player = null;
-    }
-
-    IEnumerator TakeDamagePerTime()
+    IEnumerator ContiniousDamage(DamagebleComponent damagableComponent)
     {
         while (true)
         {
-
-            yield return new WaitForSeconds(0.5f);
-
-            if (player != null)
-            {
-                Debug.Log("f");
-                player.Hp -= damageDeal;
-            }
+            yield return new WaitForSeconds(1);
+            damagableComponent.Hp -= damageDeal;
+            Debug.Log($"{damagableComponent.gameObject.name} {damagableComponent.Hp} current HP");
         }
+    }
+
+    void OnCharacterExit()
+    {
+        StopCoroutine(TakeDamagePerTime);
+    }
+
+    void OnCharacterEnter(BaceCharacterController controller)
+    {
+        StartCoroutine(TakeDamagePerTime = ContiniousDamage(controller.gameObject.GetComponent<DamagebleComponent>()));
     }
 }

@@ -5,14 +5,16 @@ using UnityEngine;
 public class MedicineChest : MonoBehaviour
 {
     [SerializeField] int heal;
-    DamagebleComponent player;
+    DamagebleComponent damagableComponent;
 
-    public void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.GetComponent<PlayerController>() && collision.GetComponent<DamagebleComponent>().Hp != 100f)
+        if (other.gameObject.TryGetComponent<DamagebleComponent>(out DamagebleComponent hinge))
         {
-            player.Hp += heal;
-            Destroy(this);
+            damagableComponent = other.gameObject.GetComponent<DamagebleComponent>();
+            damagableComponent.Hp += heal;
+            Debug.Log($"{damagableComponent.Hp} current HP");
+            Destroy(gameObject);
         }
     }
 }
