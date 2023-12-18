@@ -72,8 +72,7 @@ public class AIController : BaceCharacterController
                 Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
             }
 
-            if (isMoveToCompleted) return; //плоское лучше чем вложеное
-            //лучше чем написать if (!isMoveToCompleted) {что-то делается}
+            if (isMoveToCompleted) return; 
 
             Vector3 targetPos = path.corners[pathPointIndex];
             Vector3 soursePos = transform.position;

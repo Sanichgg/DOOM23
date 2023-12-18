@@ -5,8 +5,8 @@ using static UnityEditor.PlayerSettings;
 
 public class Elevator : MonoBehaviour
 {
-    [SerializeField] float speed; //elevator speed
-    [SerializeField] int height; //Where to go?
+    [SerializeField] float speed; 
+    [SerializeField] int height; 
     Vector3 startpos;
     Transform passenger;
 

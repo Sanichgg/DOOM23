@@ -4,74 +4,66 @@ using UnityEngine;
 
 public class DamagebleComponent : MonoBehaviour
 {
-    [SerializeField] int maxHp = 100;
-    [SerializeField] Affiliation affiliation;
+    [SerializeField] protected int maxHP;
+    [SerializeField] protected Affiliation affiliation;
 
     public Affiliation Affiliation => affiliation;
 
+    protected bool isDead;
+    protected int currentHp;
 
-    bool isDead;
+    private void Start() => currentHp = maxHP;
 
-    [SerializeField] int currentHp;
-
-    private void Start()
+    private void OnEnable()
     {
-        Hp = maxHp;
+        EnemyManager.RegisterEnemy(this);
     }
 
-    public bool IsDead => isDead; 
-    public bool isAlive
+    private void OnDisable()
     {
-        get
-        {
-            return !isDead;
-        }
+        EnemyManager.UnregisterEnemy(this);
     }
+
+    public bool IsDead => isDead;
+    public bool IsAlive => !isDead;
 
     public int Hp
     {
         get => currentHp;
         set
         {
-            Debug.Log(value);
             if (isDead) return;
 
-            if (value <= 0)
+            currentHp = value;
+
+            if (currentHp <= 0)
             {
-                currentHp = value;
+                currentHp = 0;
                 Die();
             }
-
-            else if (value > 100)
-            {
-                currentHp = maxHp;
-            }
-            else
-            {
-                currentHp = value;
-            }
-
         }
     }
-    private void Update()
+
+    public virtual void DealDamage(int damageAmount)
     {
-        
-        //Debug.Log(currentHp);
+        Hp -= damageAmount;
     }
 
-    void Die()
+    protected virtual void Die()
     {
-        Debug.Log($"{gameObject.name} is dead");
-        isDead = true;
+        Debug.Log($"{gameObject.name} is died from cringe");
     }
 
-
-    private void OnEnable()
+    public virtual bool TryHeal(int amountToHeal)
     {
-        EnemyManager.RegisterEnemy(this);
-    }
-    private void OnDisable()
-    {
-        EnemyManager.UnregisterEnemy(this);
+        if (currentHp < maxHP)
+        {
+            currentHp += Mathf.Clamp(amountToHeal, 0, maxHP - currentHp);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

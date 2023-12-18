@@ -53,7 +53,7 @@ public class EnemyManager
 
                 if (AimLineAttack(sourceTransform, enemy.transform.position)
                     || AimLineAttack(sourceTransform, enemy.transform.position + unitFrac)
-                    || AimLineAttack(sourceTransform, enemy.transform.position - unitFrac)) ;
+                    || AimLineAttack(sourceTransform, enemy.transform.position - unitFrac));
                 {
                     return enemy;
                 }

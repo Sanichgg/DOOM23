@@ -15,7 +15,7 @@ public class RoamingAIState : AIState
     
     public override void Enable()
     {
-        AIController.MoveTo(GetRandomPosInRadius(10), HandleMoveToCompleted); // HandleMoveToCompleted можно записать так -, () => Debug.Log("COMPLETED");
+        AIController.MoveTo(GetRandomPosInRadius(10), HandleMoveToCompleted);
         AIController.Sense.TargetChanged += HandleTargetChanged;
     }
 
